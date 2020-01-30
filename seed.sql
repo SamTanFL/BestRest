@@ -1,0 +1,1 @@
+INSERT INTO users (username, passhash) VALUES ('1', '1');
