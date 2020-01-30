@@ -30,8 +30,11 @@ module.exports = (app, allModels) => {
     //home page
     app.get('/', mainControllerCallbacks.index);
 
+    //form for tracking sleep
+    app.get('/sleep/new', mainControllerCallbacks.slpForm);
 
-
+    //form for tracking activities
+    app.get('/activity/new', mainControllerCallbacks.actForm);
 
 
     /*

@@ -10,12 +10,35 @@ module.exports = (db) => {
      */
 
     let index = (request, response) => {
+        //for testing purpose. delete later
+        response.cookie('userId', 1);
+        response.cookie('logSess', 1);
         response.render('rest/home');
     };
 
 
+    let slpForm = (request, response) => {
+        if (request.cookies.userId && request.cookies.logSess){
+            response.render('rest/form/slp');
+        } else {
+            let data = {
+                error : "Please Login"
+            };
+            response.render('error', data)
+        }
+    };
 
 
+    let actForm = (request, response) => {
+        if (request.cookies.userId && request.cookies.logSess){
+            response.render('rest/form/act');
+        } else {
+            let data = {
+                error : "Please Login"
+            };
+            response.render('error', data)
+        }
+    };
 
 
 
@@ -25,7 +48,9 @@ module.exports = (db) => {
      * ===========================================
      */
     return {
-        index
+        index,
+        slpForm,
+        actForm
     };
 
 }
