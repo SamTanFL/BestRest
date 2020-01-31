@@ -9,9 +9,11 @@ class Home extends React.Component {
       <html>
         <Head />
         <body>
-            <Navbar />
-            <h1>Better Get Some Rest</h1>
-            <Footer />
+            <div className="container">
+                <Navbar />
+                <h1>Better Get Some Rest</h1>
+                <Footer />
+            </div>
         </body>
       </html>
     );

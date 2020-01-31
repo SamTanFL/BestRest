@@ -11,6 +11,7 @@ module.exports = (db) => {
      * ===========================================
      */
 
+
     let index = (request, response) => {
         //for testing purpose. delete later
         response.cookie('userId', 1);
@@ -59,7 +60,6 @@ module.exports = (db) => {
             duration,
             notes : data.notes
         };
-        console.log(details);
         db.main.insertSleep(details, (error, sleepId) => {
             if (error) {
                 response.render('error', error);
@@ -71,7 +71,29 @@ module.exports = (db) => {
     };
 
 
-
+    let actPost = (request, response) => {
+        let data = request.body
+        let benefit;
+        if (data.benefit) {
+            benefit = true
+        } else {
+            benefit = false
+        };
+        let details = {
+            userId : data.userId,
+            name : data.name,
+            start : data.start,
+            benefit
+        };
+        db.main.insertAct(details, (error, actId) => {
+            if (error) {
+                response.render('error', error);
+            } else {
+                let link = "/activity/" + actId
+                response.redirect(link);
+            };
+        });
+    };
 
 
 
@@ -92,7 +114,6 @@ module.exports = (db) => {
             let start = new Date(testResult.sleepstart);
             let end = new Date(testResult.sleepend);
             let duration = end.getTime() - start.getTime();
-            console.log(duration);
             response.send();
         });
     };
@@ -109,6 +130,7 @@ module.exports = (db) => {
         slpForm,
         actForm,
         slpPost,
+        actPost,
         test
     };
 

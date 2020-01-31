@@ -8,7 +8,6 @@ module.exports = (dbPoolInstance) => {
 
     //for inserting into SLEEP table
     let insertSleep = (details, callback) => {
-/*        console.log("Sleep Start :", details.sleepTime)*/
         let query = "INSERT INTO sleep (userId, sleepstart, sleepend, duration, notes) VALUES ($1, $2, $3, $4, $5) RETURNING id;";
         let values = [details.userId, details.sleepstart, details.sleepend, details.duration, details.notes]
         dbPoolInstance.query(query, values, (err, queryResult) => {
@@ -18,7 +17,6 @@ module.exports = (dbPoolInstance) => {
             }else{
                 // invoke callback function with results after query has executed
                 if( queryResult.rows.length > 0 ){
-                    /*console.log("Result.rows :", queryResult.rows)*/
                     callback(null, queryResult.rows[0].id);
                 }else{
                     callback(null, null);
@@ -30,7 +28,7 @@ module.exports = (dbPoolInstance) => {
 
     //for inserting into ACTIVITY table
     let insertAct = (details, callback) => {
-        let query = "INSERT INTO activity (userId, name, start, benefit) VALUES ($1, $2, $3, $4);"
+        let query = "INSERT INTO activity (userId, name, start, benefit) VALUES ($1, $2, $3, $4) RETURNING id;"
         let values = [details.userId, details.name, details.start, details.benefit];
         dbPoolInstance.query(query, values, (err, queryResult) => {
             if( err ){
@@ -39,8 +37,7 @@ module.exports = (dbPoolInstance) => {
             }else{
                 // invoke callback function with results after query has executed
                 if( queryResult.rows.length > 0 ){
-                    /*console.log("Result.rows :", queryResult.rows)*/
-                    callback(null, queryResult.rows[0]);
+                    callback(null, queryResult.rows[0].id);
                 }else{
                     callback(null, null);
                 }

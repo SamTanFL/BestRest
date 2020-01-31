@@ -52,9 +52,11 @@ module.exports = (app, allModels) => {
      */
 
 
-//post route for inserting sleep
-     app.post('/sleep', mainControllerCallbacks.slpPost)
+    //post route for inserting sleep
+    app.post('/sleep', mainControllerCallbacks.slpPost)
 
+    //post route for inserting activity
+    app.post('/activity', mainControllerCallbacks.actPost)
 
 
 
