@@ -8,19 +8,16 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS sleep (
     id SERIAL PRIMARY KEY,
     userId INTEGER,
-    sleepDate date,
-    start timestamptz,
-    wake timestamptz,
-    duration time,
+    sleepstart timestamptz,
+    sleepend timestamptz,
+    duration INTEGER,
     notes TEXT
 );
 
 CREATE TABLE IF NOT EXISTS activity (
     id SERIAL PRIMARY KEY,
     userId INTEGER,
-    actDate date,
     name TEXT,
     start timestamptz,
-    benefit boolean,
-    duration time
+    benefit boolean
 );

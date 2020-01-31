@@ -13,24 +13,24 @@ class Act extends React.Component {
             <h1>Track Activity</h1>
             <form action="/sleep" method="POST">
                 <div className="form-group">
-                    <label>Start Date :</label>
-                    <input type="date" className="form-control" placeholder="dd/mm/yy" name="sleepDate"/>
-                </div>
-                <div className="form-group">
                     <input type="hidden" name="userId" value={this.props.userId}/>
                 </div>
                 <div className="form-group">
+                    <label>Activity Name :</label>
+                    <input type="text" className="form-control" placeholder="Name of Activity" name="name"/>
+                </div>
+                <div className="form-group">
                     <label>Start :</label>
-                    <input type="time" className="form-control" name="start"/>
+                    <input type="datetime-local" className="form-control" name="start"/>
                     <small>If you can't remember exactly, just go with a rough estimate</small>
                 </div>
                 <div className="form-group">
-                    <label>End :</label>
-                    <input type="time" className="form-control" name="wake"/>
-                </div>
-                <div className="form-group">
-                    <label>Comments :</label>
-                    <input type="text" className="form-control" placeholder="Any additional notes you would like to make." name="notes"/>
+                    <label>Sleep Hygiene :</label>
+                    <select className="form-control" name="benefit">
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+                    <small>Was the activity beneficial to your Sleep Hygiene</small>
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>

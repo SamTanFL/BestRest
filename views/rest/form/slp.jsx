@@ -5,6 +5,7 @@ var Footer = require("../../footer")
 
 class Slp extends React.Component {
   render() {
+    let endError = <small className="text-danger">{this.props.error}</small>
     return (
       <html>
         <Head />
@@ -13,23 +14,22 @@ class Slp extends React.Component {
             <h1>Track Sleep</h1>
             <form action="/sleep" method="POST">
                 <div className="form-group">
-                    <label>Start Date :</label>
-                    <input type="date" className="form-control" placeholder="dd/mm/yy" name="sleepDate"/>
-                </div>
-                <div className="form-group">
                     <input type="hidden" name="userId" value={this.props.userId}/>
                 </div>
                 <div className="form-group">
-                    <label>Start :</label>
-                    <input type="time" className="form-control" name="start"/>
+                    <label>Sleep Start :</label>
+                    <p></p>
+                    <input type="datetime-local" className="form-control" name="sleepstart" value="2020-01-01T00:00"/>
                     <small>If you can't remember exactly, just go with a rough estimate</small>
                 </div>
                 <div className="form-group">
-                    <label>End :</label>
-                    <input type="time" className="form-control" name="wake"/>
+                    <label>Sleep End :</label>
+                    <p>{endError}</p>
+                    <input type="datetime-local" className="form-control" name="sleepend" value="2020-01-01T12:00"/>
                 </div>
                 <div className="form-group">
                     <label>Comments :</label>
+                    <p></p>
                     <input type="text" className="form-control" placeholder="Any additional notes you would like to make." name="notes"/>
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>

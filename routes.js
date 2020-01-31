@@ -36,6 +36,9 @@ module.exports = (app, allModels) => {
     //form for tracking activities
     app.get('/activity/new', mainControllerCallbacks.actForm);
 
+    //test route
+    app.get('*', mainControllerCallbacks.test);
+
 
     /*
      *  =========================================
@@ -49,9 +52,13 @@ module.exports = (app, allModels) => {
      */
 
 
+//post route for inserting sleep
+     app.post('/sleep', mainControllerCallbacks.slpPost)
 
 
-        /*
+
+
+    /*
      *  =========================================
      *  =========================================
      *  =========================================
