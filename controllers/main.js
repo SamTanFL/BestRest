@@ -84,9 +84,9 @@ module.exports = (db) => {
 
     let userPost = (request, response) => {
         let details = request.body;
-        let search = "WHERE username=" + details.username
+        let search = "WHERE username=" + details.username;
         db.main.checkUser(search, (error, userResult) => {
-            if (userResult.rows.length > 0) {
+            if (userResult !== null) {
                 let data = {
                     nameError : "Username Already In-Use"
                 }
