@@ -17,12 +17,15 @@ module.exports = (db) => {
         response.cookie('userId', 1);
         response.cookie('logSess', sha256(1 + SALT));
         if (sha256(request.cookies.userId + SALT) === request.cookies.logSess) {
-            db.main.checkUser(request.cookies.userId, (error, username) => {
+            let searchPara = "WHERE id=" + request.cookies.userId;
+            db.main.checkUser(searchPara, (error, userResult) => {
                 if (error) {
                     let data = {error};
                     response.render('error', data)
                 }
-                let data = {username}
+                let data = {
+                    username: userResult.username
+                }
                 response.render('rest/home', data);
             })
         } else {
@@ -31,12 +34,26 @@ module.exports = (db) => {
     };
 
 
+    let userForm = (request, response) => {
+        let data = {};
+        if (request.cookies.logSess && request.cookies.userId) {
+            data = {
+                error : "User Already Logged In"
+            };
+            response.render('error', data);
+        } else {
+            response.render('rest/form/user')
+        };
+    };
+
+
     let slpForm = (request, response) => {
         if (sha256(request.cookies.userId + SALT) === request.cookies.logSess){
-            db.main.checkUser(request.cookies.userId, (error, username) => {
+            let searchPara = "WHERE id=" + request.cookies.userId;
+            db.main.checkUser(searchPara, (error, userResult) => {
                 let data = {
                     userId : request.cookies.userId,
-                    username : username
+                    username : userResult.username
                 };
                 response.render('rest/form/slp', data);
             });
@@ -51,10 +68,11 @@ module.exports = (db) => {
 
     let actForm = (request, response) => {
         if (sha256(request.cookies.userId + SALT) === request.cookies.logSess){
-            db.main.checkUser(request.cookies.userId, (error, username) => {
+            let searchPara = "WHERE id=" + request.cookies.userId;
+            db.main.checkUser(searchPara, (error, userResult) => {
                 let data = {
                     userId : request.cookies.userId,
-                    username : username
+                    username : userResult.username
                 };
                 response.render('rest/form/act', data);
             });
@@ -65,6 +83,15 @@ module.exports = (db) => {
             response.render('error', data)
         };
     };
+
+
+    let userPost = (request, response) => {
+        let details = request.body;
+        db.main.checkUser(details.username, (error, userResult) => {
+
+        });
+    };
+
 
 
     let slpPost = (request, response) => {
@@ -119,6 +146,13 @@ module.exports = (db) => {
     };
 
 
+    let userLogout = (request, response) => {
+        response.clearCookie('logSess');
+        response.clearCookie('userId');
+        response.redirect('back');
+    }
+
+
 
 
 
@@ -147,11 +181,13 @@ module.exports = (db) => {
      */
     return {
         index,
+        userForm,
         slpForm,
         actForm,
         slpPost,
         actPost,
         slpDisAll,
+        userLogout,
         test
     };
 

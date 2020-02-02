@@ -66,19 +66,31 @@ module.exports = (dbPoolInstance) => {
 
     //selecting from ACTIVITY table
     let selectAct = (details, callback) => {
-
-    }
-
-
-    //to retrive data about who is the current user
-    let checkUser = (userId, callback) => {
-        let query = "SELECT username FROM users WHERE id=" + userId
+        let query = "SELECT * FROM activity" + details + "ORDER BY start ASC";
         dbPoolInstance.query(query, (err, queryResult) => {
             if (err) {
                 callback(err, null);
             } else {
                 if (queryResult.rows.length > 0) {
-                    callback(null, queryResult.rows[0].username);
+                    callback(null, queryResult.rows);
+                } else {
+                    //when theres no error and no result
+                    callback(null, null);
+                }
+            };
+        });
+    };
+
+
+    //to retrive data about who is the current user
+    let checkUser = (searchParameters, callback) => {
+        let query = "SELECT * FROM users " + searchParameters
+        dbPoolInstance.query(query, (err, queryResult) => {
+            if (err) {
+                callback(err, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows[0]);
                 } else {
                     //when theres no error and no result
                     callback(null, null);

@@ -30,6 +30,9 @@ module.exports = (app, allModels) => {
     //home page
     app.get('/', mainControllerCallbacks.index);
 
+    //form for registering a new user;
+    app.get('/users/new', mainControllerCallbacks.userForm);
+
     //form for tracking sleep
     app.get('/sleep/new', mainControllerCallbacks.slpForm);
 
@@ -56,10 +59,10 @@ module.exports = (app, allModels) => {
 
 
     //post route for inserting sleep
-    app.post('/sleep', mainControllerCallbacks.slpPost)
+    app.post('/sleep', mainControllerCallbacks.slpPost);
 
     //post route for inserting activity
-    app.post('/activity', mainControllerCallbacks.actPost)
+    app.post('/activity', mainControllerCallbacks.actPost);
 
 
 
@@ -88,5 +91,8 @@ module.exports = (app, allModels) => {
      *  =========================================
      */
 
+
+     //delete route to log user out
+     app.delete('/users/logout', mainControllerCallbacks.userLogout);
 
 };
