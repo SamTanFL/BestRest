@@ -10,7 +10,7 @@ class Act extends React.Component {
         <Head />
         <body>
             <div className="container">
-                <Navbar />
+                <Navbar username={this.props.username}/>
                 <h1>Track Activity</h1>
                 <form action="/activity" method="POST">
                     <div className="form-group">
@@ -18,16 +18,16 @@ class Act extends React.Component {
                     </div>
                     <div className="form-group">
                         <label>Activity Name :</label>
-                        <input type="text" className="form-control" placeholder="Name of Activity" value="test" name="name"/>
+                        <input type="text" className="form-control" placeholder="Name of Activity" defaultValue="test" name="name"/>
                     </div>
                     <div className="form-group">
                         <label>Start :</label>
-                        <input type="datetime-local" className="form-control" value="2020-01-01T00:00" name="start"/>
+                        <input type="datetime-local" className="form-control" defaultValue="2020-01-01T00:00" name="start"/>
                         <small>If you can't remember exactly, just go with a rough estimate</small>
                     </div>
                     <div className="form-group">
                         <label>Sleep Hygiene :</label>
-                        <input type="checkbox" className="form-check" name="benefit" value="true"/>
+                        <input type="checkbox" className="form-check" name="benefit" defaultValue="true"/>
                         <small>Was the activity beneficial to your Sleep Hygiene</small>
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>

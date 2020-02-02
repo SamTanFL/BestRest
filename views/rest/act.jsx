@@ -3,7 +3,7 @@ var Head = require("../head")
 var Navbar = require("../navbar")
 var Footer = require("../footer")
 
-class Home extends React.Component {
+class Act extends React.Component {
   render() {
 
 
@@ -22,4 +22,4 @@ class Home extends React.Component {
   }
 }
 
-module.exports = Home;
+module.exports = Act;

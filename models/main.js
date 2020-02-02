@@ -48,8 +48,20 @@ module.exports = (dbPoolInstance) => {
 
     //selecting from SLEEP table
     let selectSleep = (details, callback) => {
-
-    }
+        let query = "SELECT * FROM sleep" + details + "ORDER BY sleepstart ASC";
+        dbPoolInstance.query(query, (err, queryResult) => {
+            if (err) {
+                callback(err, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows);
+                } else {
+                    //when theres no error and no result
+                    callback(null, null);
+                }
+            };
+        });
+    };
 
 
     //selecting from ACTIVITY table
@@ -58,13 +70,31 @@ module.exports = (dbPoolInstance) => {
     }
 
 
+    //to retrive data about who is the current user
+    let checkUser = (userId, callback) => {
+        let query = "SELECT username FROM users WHERE id=" + userId
+        dbPoolInstance.query(query, (err, queryResult) => {
+            if (err) {
+                callback(err, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows[0].username);
+                } else {
+                    //when theres no error and no result
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+
     //test model for trying to extract data
     let test = (callback) => {
         let query = "SELECT * FROM sleep;"
         dbPoolInstance.query(query, (err, queryResult) => {
             callback(null, queryResult.rows[0]);
         });
-    }
+    };
 
 
 
@@ -73,6 +103,7 @@ module.exports = (dbPoolInstance) => {
         insertAct,
         selectSleep,
         selectAct,
+        checkUser,
         test
     };
 };

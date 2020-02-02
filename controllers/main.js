@@ -15,17 +15,31 @@ module.exports = (db) => {
     let index = (request, response) => {
         //for testing purpose. delete later
         response.cookie('userId', 1);
-        response.cookie('logSess', 1);
-        response.render('rest/home');
+        response.cookie('logSess', sha256(1 + SALT));
+        if (sha256(request.cookies.userId + SALT) === request.cookies.logSess) {
+            db.main.checkUser(request.cookies.userId, (error, username) => {
+                if (error) {
+                    let data = {error};
+                    response.render('error', data)
+                }
+                let data = {username}
+                response.render('rest/home', data);
+            })
+        } else {
+            response.render('rest/home');
+        }
     };
 
 
     let slpForm = (request, response) => {
-        if (request.cookies.userId && request.cookies.logSess){
-            let data = {
-                userId : request.cookies.userId
-            };
-            response.render('rest/form/slp', data);
+        if (sha256(request.cookies.userId + SALT) === request.cookies.logSess){
+            db.main.checkUser(request.cookies.userId, (error, username) => {
+                let data = {
+                    userId : request.cookies.userId,
+                    username : username
+                };
+                response.render('rest/form/slp', data);
+            });
         } else {
             let data = {
                 error : "Please Login"
@@ -36,11 +50,14 @@ module.exports = (db) => {
 
 
     let actForm = (request, response) => {
-        if (request.cookies.userId && request.cookies.logSess){
-            let data = {
-                userId : request.cookies.userId
-            };
-            response.render('rest/form/act', data);
+        if (sha256(request.cookies.userId + SALT) === request.cookies.logSess){
+            db.main.checkUser(request.cookies.userId, (error, username) => {
+                let data = {
+                    userId : request.cookies.userId,
+                    username : username
+                };
+                response.render('rest/form/act', data);
+            });
         } else {
             let data = {
                 error : "Please Login"
@@ -96,7 +113,10 @@ module.exports = (db) => {
     };
 
 
-
+    let slpDisAll = (request, response) => {
+        //will set the page up later
+        response.redirect('/');
+    };
 
 
 
@@ -111,10 +131,10 @@ module.exports = (db) => {
     //testing purpose. delete when done
     let test = (request, response) => {
         db.main.test((error, testResult) => {
-            let start = new Date(testResult.sleepstart);
+/*            let start = new Date(testResult.sleepstart);
             let end = new Date(testResult.sleepend);
             let duration = end.getTime() - start.getTime();
-            response.send();
+            response.send();*/
         });
     };
 
@@ -131,6 +151,7 @@ module.exports = (db) => {
         actForm,
         slpPost,
         actPost,
+        slpDisAll,
         test
     };
 

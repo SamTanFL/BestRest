@@ -33,6 +33,9 @@ module.exports = (app, allModels) => {
     //form for tracking sleep
     app.get('/sleep/new', mainControllerCallbacks.slpForm);
 
+    //to display page for sleeping
+    app.get('/sleep', mainControllerCallbacks.slpDisAll)
+
     //form for tracking activities
     app.get('/activity/new', mainControllerCallbacks.actForm);
 
