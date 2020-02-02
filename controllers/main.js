@@ -185,6 +185,7 @@ module.exports = (db) => {
 
 
     let slpDisAll = (request, response) => {
+
         //will set the page up later
         response.redirect('/');
     };

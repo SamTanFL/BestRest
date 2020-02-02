@@ -43,7 +43,7 @@ module.exports = (app, allModels) => {
     app.get('/activity/new', mainControllerCallbacks.actForm);
 
     //test route
-    app.get('*', mainControllerCallbacks.test);
+    app.get('*', mainControllerCallbacks.index);
 
 
     /*
