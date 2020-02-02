@@ -11,11 +11,11 @@ class Home extends React.Component {
       <html>
         <Head />
         <body>
+            <Navbar username={this.props.username} error={this.props.error}/>
             <div className="container">
-                <Navbar username={this.props.username} error={this.props.error}/>
                 <h1>Better Get Some Rest</h1>
-                <Footer />
             </div>
+            <Footer />
         </body>
       </html>
     );

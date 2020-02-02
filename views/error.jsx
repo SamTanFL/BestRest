@@ -9,13 +9,13 @@ class ErrorPage extends React.Component {
       <html>
         <Head />
         <body>
+            <Navbar username={this.props.username}/>
             <div className="container">
-                <Navbar />
                 <h1>This is an Error Page</h1>
                 <p>{this.props.error}</p>
             </div>
-            <Footer />
         </body>
+        <Footer />
       </html>
     );
   }

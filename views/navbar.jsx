@@ -4,27 +4,29 @@ class Navbar extends React.Component {
     render() {
         let loginOut
         if (this.props.username) {
-            loginOut = <div><span>Logged in as {this.props.username}.</span><form action="/users/logout?_method=delete" method="POST"><button className="btn-danger">Logout</button></form></div>
+            loginOut = <div><span className="mr-sm-2">Logged in as {this.props.username}.</span><form className="form-inline my-2 my-lg-0" action="/users/logout?_method=delete" method="POST"><button className="btn btn-outline-primary my-2 my-sm-0" type="submit">Logout</button></form></div>
         } else {
-            loginOut = <div><span><small className="text-danger">{this.props.error}</small></span><form className="form-inline my-2 my-lg-0" method="POST" action="/"><input className="form-control mr-sm-2" type="text" placeholder="Username" aria-label="User" name="username"/><input className="form-control mr-sm-2" type="text" placeholder="Password" aria-label="Password" name="password"/><button className="btn btn-outline-success my-2 my-sm-0" type="submit">Log In</button></form></div>
+            loginOut = <div><span><small className="text-danger">{this.props.error}</small></span><form className="form-inline my-2 my-lg-0" method="POST" action="/"><input className="form-control mr-sm-2" type="text" placeholder="Username" aria-label="User" name="username"/><input className="form-control mr-sm-2" type="text" placeholder="Password" aria-label="Password" name="password"/><button className="btn btn-outline-primary my-2 my-sm-0" type="submit">Log In</button></form></div>
         }
         return (
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <a href="/" className="navbar-brand">The Best Rest</a>
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav mr-auto">
-                        <li className="nav-item">
-                            <a className="nav-link" href="/sleep/new">Add Sleep</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="/users/new">Register Acc</a>
-                        </li>
-                    </ul>
-                    {loginOut}
-                  </div>
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark ">
+                <div className="container">
+                    <a href="/" className="navbar-brand">The Best Rest</a>
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul className="navbar-nav mr-auto">
+                            <li className="nav-item">
+                                <a className="nav-link" href="/sleep/new">Add Sleep</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/users/new">Register Acc</a>
+                            </li>
+                        </ul>
+                        {loginOut}
+                      </div>
+                </div>
             </nav>
         );
     }

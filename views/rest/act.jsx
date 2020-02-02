@@ -11,11 +11,11 @@ class Act extends React.Component {
       <html>
         <Head />
         <body>
+            <Navbar username={this.props.username}/>
             <div className="container">
-                <Navbar username={this.props.username}/>
                 <h1>Better Get Some Rest</h1>
-                <Footer />
             </div>
+            <Footer />
         </body>
       </html>
     );

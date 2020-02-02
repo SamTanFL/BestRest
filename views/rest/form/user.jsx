@@ -9,8 +9,8 @@ class User extends React.Component {
       <html>
         <Head />
         <body>
+            <Navbar username={this.props.username}/>
             <div className="container">
-                <Navbar username={this.props.username}/>
                 <h1>Register Account</h1>
                 <form action="/users/new" method="POST">
                     <div className="form-group">
@@ -25,8 +25,8 @@ class User extends React.Component {
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
-                <Footer />
             </div>
+            <Footer />
         </body>
       </html>
     );

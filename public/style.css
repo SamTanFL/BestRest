@@ -1,0 +1,12 @@
+body {
+    background-color: rgba(35, 49, 84, 0.84) !important;
+    color: white !important;
+}
+
+footer {
+/*    background-color: rgba(35, 49, 84, 1) !important;*/
+    position: absolute;
+    padding: 10px;
+    bottom: 0;
+    width: 100%;
+}

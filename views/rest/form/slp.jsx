@@ -10,8 +10,8 @@ class Slp extends React.Component {
       <html>
         <Head />
         <body>
+            <Navbar username={this.props.username}/>
             <div className="container">
-                <Navbar username={this.props.username}/>
                 <h1>Track Sleep</h1>
                 <form action="/sleep" method="POST">
                     <div className="form-group">
@@ -35,8 +35,8 @@ class Slp extends React.Component {
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
-                <Footer />
             </div>
+            <Footer />
         </body>
       </html>
     );

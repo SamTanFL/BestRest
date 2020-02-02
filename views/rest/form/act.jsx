@@ -9,8 +9,8 @@ class Act extends React.Component {
       <html>
         <Head />
         <body>
+            <Navbar username={this.props.username}/>
             <div className="container">
-                <Navbar username={this.props.username}/>
                 <h1>Track Activity</h1>
                 <form action="/activity" method="POST">
                     <div className="form-group">
@@ -32,8 +32,8 @@ class Act extends React.Component {
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
-                <Footer />
             </div>
+            <Footer />
         </body>
       </html>
     );
