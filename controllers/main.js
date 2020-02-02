@@ -14,7 +14,7 @@ module.exports = (db) => {
 
     let index = (request, response) => {
         if (sha256(request.cookies.userId + SALT) === request.cookies.logSess) {
-            let searchPara = "WHERE id=" + request.cookies.userId;
+            let searchPara = "WHERE id='" + request.cookies.userId + "'";
             db.main.checkUser(searchPara, (error, userResult) => {
                 if (error) {
                     let data = {error};
@@ -108,23 +108,23 @@ module.exports = (db) => {
 
 
     let userLogin = (request, response) => {
-        let data = {};
+        let data;
         let details = {
-            username : request.body.username,
-            passhash : (sha256(request.body.password + SALT))
+            username : request.body.username.toString(),
+            passhash : sha256(request.body.password + SALT)
         };
-        let search = "WHERE username=" + details.username
-        db.main.checkUser(search, (error, userResult) => {
+        let searchPara = "WHERE username='" + details.username + "'";
+        db.main.checkUser(searchPara, (error, userResult) => {
             if (error) {
-                data.error = error;
+                data.error = "Theres an error somewhere";
                 response.render('error', data);
             } else {
                 if (userResult === null) {
-                    data.error = "No such User Found";
+                    data = {error: "Invalid Username"}
                     response.render('rest/home', data)
                 } else {
                     if (details.passhash !== userResult.passhash) {
-                        data.error = "Invalid Password";
+                        data = {error : "Invalid Password"}
                         response.render('rest/home', data)
                     } else {
                         response.cookie("userId", userResult.id);

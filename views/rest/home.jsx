@@ -12,7 +12,7 @@ class Home extends React.Component {
         <Head />
         <body>
             <div className="container">
-                <Navbar username={this.props.username}/>
+                <Navbar username={this.props.username} error={this.props.error}/>
                 <h1>Better Get Some Rest</h1>
                 <Footer />
             </div>

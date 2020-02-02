@@ -6,7 +6,7 @@ class Navbar extends React.Component {
         if (this.props.username) {
             loginOut = <div><span>Logged in as {this.props.username}.</span><form action="/users/logout?_method=delete" method="POST"><button className="btn-danger">Logout</button></form></div>
         } else {
-            loginOut = <div><span><small className="text-danger">{this.props.error}</small><span><form className="form-inline my-2 my-lg-0" method="POST" action="/"><input className="form-control mr-sm-2" type="text" placeholder="Username" aria-label="User" name="username"/><input className="form-control mr-sm-2" type="text" placeholder="Password" aria-label="Password" name="password"/><button className="btn btn-outline-success my-2 my-sm-0" type="submit">Log In</button></form></div>
+            loginOut = <div><span><small className="text-danger">{this.props.error}</small></span><form className="form-inline my-2 my-lg-0" method="POST" action="/"><input className="form-control mr-sm-2" type="text" placeholder="Username" aria-label="User" name="username"/><input className="form-control mr-sm-2" type="text" placeholder="Password" aria-label="Password" name="password"/><button className="btn btn-outline-success my-2 my-sm-0" type="submit">Log In</button></form></div>
         }
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
