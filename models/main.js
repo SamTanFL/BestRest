@@ -6,6 +6,25 @@
 module.exports = (dbPoolInstance) => {
 
 
+    //for registering users
+    let insertUser = (details, callback) => {
+        let query = "INSERT INTO users (username, passhash) VALUES ($1, $2) RETURNING id;";
+        let values = [details.username, details.passhash];
+        dbPoolInstance.query(query, values, (err, queryResult) => {
+            if (err) {
+                callback(err, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows[0].id);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+
+
     //for inserting into SLEEP table
     let insertSleep = (details, callback) => {
         let query = "INSERT INTO sleep (userId, sleepstart, sleepend, duration, notes) VALUES ($1, $2, $3, $4, $5) RETURNING id;";
@@ -84,7 +103,7 @@ module.exports = (dbPoolInstance) => {
 
     //to retrive data about who is the current user
     let checkUser = (searchParameters, callback) => {
-        let query = "SELECT * FROM users " + searchParameters
+        let query = "SELECT * FROM users " + searchParameters;
         dbPoolInstance.query(query, (err, queryResult) => {
             if (err) {
                 callback(err, null);
@@ -111,6 +130,7 @@ module.exports = (dbPoolInstance) => {
 
 
     return {
+        insertUser,
         insertSleep,
         insertAct,
         selectSleep,

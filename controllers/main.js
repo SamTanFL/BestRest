@@ -13,9 +13,6 @@ module.exports = (db) => {
 
 
     let index = (request, response) => {
-        //for testing purpose. delete later
-        response.cookie('userId', 1);
-        response.cookie('logSess', sha256(1 + SALT));
         if (sha256(request.cookies.userId + SALT) === request.cookies.logSess) {
             let searchPara = "WHERE id=" + request.cookies.userId;
             db.main.checkUser(searchPara, (error, userResult) => {
@@ -87,9 +84,31 @@ module.exports = (db) => {
 
     let userPost = (request, response) => {
         let details = request.body;
-        db.main.checkUser(details.username, (error, userResult) => {
-
+        let search = "WHERE username=" + details.username
+        db.main.checkUser(search, (error, userResult) => {
+            if (userResult.rows.length > 0) {
+                let data = {
+                    nameError : "Username Already In-Use"
+                }
+                response.render("rest/form/user", data)
+            } else {
+                let passhash = sha256(details.password + SALT);
+                let data = {
+                    username : details.username,
+                    passhash
+                }
+                db.main.insertUser(data, (error, userId) => {
+                    response.cookie("userId", userId);
+                    response.cookie("logSess", sha256(userId + SALT));
+                    response.redirect('/');
+                })
+            }
         });
+    };
+
+
+    let userLogin = (request, response) => {
+
     };
 
 
@@ -184,6 +203,8 @@ module.exports = (db) => {
         userForm,
         slpForm,
         actForm,
+        userPost,
+        userLogin,
         slpPost,
         actPost,
         slpDisAll,
