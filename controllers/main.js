@@ -108,7 +108,32 @@ module.exports = (db) => {
 
 
     let userLogin = (request, response) => {
-
+        let data = {};
+        let details = {
+            username : request.body.username,
+            passhash : (sha256(request.body.password + SALT))
+        };
+        let search = "WHERE username=" + details.username
+        db.main.checkUser(search, (error, userResult) => {
+            if (error) {
+                data.error = error;
+                response.render('error', data);
+            } else {
+                if (userResult === null) {
+                    data.error = "No such User Found";
+                    response.render('rest/home', data)
+                } else {
+                    if (details.passhash !== userResult.passhash) {
+                        data.error = "Invalid Password";
+                        response.render('rest/home', data)
+                    } else {
+                        response.cookie("userId", userResult.id);
+                        response.cookie("logSess", (sha256(userResult.id + SALT)));
+                        response.redirect('/');
+                    }
+                }
+            }
+        });
     };
 
 

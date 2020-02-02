@@ -61,14 +61,14 @@ module.exports = (app, allModels) => {
      //post route for registering a new user
      app.post('/users/new', mainControllerCallbacks.userPost);
 
-     //post route for logging in a user
-     app.post('/users', mainControllerCallbacks.userLogin);
-
     //post route for inserting sleep
     app.post('/sleep', mainControllerCallbacks.slpPost);
 
     //post route for inserting activity
     app.post('/activity', mainControllerCallbacks.actPost);
+
+     //post route for logging in a user
+     app.post('/', mainControllerCallbacks.userLogin);
 
 
 
