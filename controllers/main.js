@@ -217,7 +217,10 @@ module.exports = (db) => {
                         };
                         response.render('error', data);
                     } else {
-                        data = { sleepData };
+                        data = {
+                            sleepData,
+                            username: request.cookies.username
+                            };
                         response.render('rest/slp', data)
                     }
                 })
@@ -232,7 +235,10 @@ module.exports = (db) => {
                         };
                         response.render('error', data);
                     } else {
-                        data = { sleepData };
+                        data = {
+                            sleepData,
+                            username: request.cookies.username
+                            };
                         response.render('rest/slp', data)
                     }
                 })
@@ -247,7 +253,10 @@ module.exports = (db) => {
                         };
                         response.render('error', data);
                     } else {
-                        data = { sleepData };
+                        data = {
+                            sleepData,
+                            username: request.cookies.username
+                            };
                         response.render('rest/slp', data)
                     }
                 })
@@ -262,7 +271,10 @@ module.exports = (db) => {
                         };
                         response.render('error', data);
                     } else {
-                        data = { sleepData };
+                        data = {
+                            sleepData,
+                            username: request.cookies.username
+                            };
                         response.render('rest/slp', data)
                     }
                 })
