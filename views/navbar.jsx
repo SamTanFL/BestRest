@@ -19,17 +19,11 @@ class Navbar extends React.Component {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="nav-item dropdown">
-                        <a className="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sleep</a>
+                        <a className="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tracker</a>
                         <div className="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-                          <a className="dropdown-item text-light" href="/sleep">Display Sleep</a>
                           <a className="dropdown-item text-light" href="/sleep/new">Add Sleep</a>
-                        </div>
-                    </div>
-                    <div className="nav-item dropdown">
-                        <a className="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Activity</a>
-                        <div className="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-                          <a className="dropdown-item text-light" href="/activity">Display Activity</a>
                           <a className="dropdown-item text-light" href="/activity/new">Add Activity</a>
+                          <a className="dropdown-item text-light" href="/display">Display Data</a>
                         </div>
                     </div>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">

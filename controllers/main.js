@@ -188,16 +188,34 @@ module.exports = (db) => {
     };
 
 
-    let slpDis = (request, response) => {
+    let dis = (request, response) => {
         let data = {};
         if (request.cookies.logSess === sha256(request.cookies.userId + SALT)) {
             data.userId = request.cookies.userId;
             data.username = request.cookies.username;
-            response.render('rest/slp', data)
+            response.render('rest/dis', data)
         } else {
             data.error = "Please Login Or Register An Account"
             response.render('error', data)
         }
+    };
+
+
+    let slpDis = (request, response) => {
+        //not done yet
+        response.redirect('/');
+    };
+
+
+    let actDis = (request, response) => {
+        //not done yet
+        response.redirect('/');
+    };
+
+
+    let allDis = (request, response) => {
+        //not done yet
+        response.redirect('/');
     };
 
 
@@ -244,7 +262,10 @@ module.exports = (db) => {
         userLogin,
         slpPost,
         actPost,
+        dis,
         slpDis,
+        actDis,
+        allDis,
         userLogout,
         test
     };

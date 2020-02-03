@@ -101,6 +101,35 @@ module.exports = (dbPoolInstance) => {
     };
 
 
+    //Experimental. Not sure if this is gonna work
+    //selecting from both tables
+    let selectBoth = (details, callback) => {
+        selectSleep(details.slp, (err1, slpResults) => {
+            selectAct(details.act, (err2, actResults) => {
+                if (err1 || err2) {
+                    let err = {
+                        err1,
+                        err2
+                    }
+                    callback(err, null)
+                } else {
+                    if (actResults || slpResults) {
+                        let results = {
+                            slp: slpResults,
+                            act: actResults
+                        }
+                        callback(null, results)
+                    } else {
+                        callback(null, null);
+                    }
+                }
+            })
+        })
+    };
+
+
+
+
     //to retrive data about who is the current user
     let checkUser = (searchParameters, callback) => {
         let query = "SELECT * FROM users " + searchParameters;
@@ -135,6 +164,7 @@ module.exports = (dbPoolInstance) => {
         insertAct,
         selectSleep,
         selectAct,
+        selectBoth,
         checkUser,
         test
     };
