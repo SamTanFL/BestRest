@@ -202,12 +202,18 @@ module.exports = (db) => {
 
 
     let slpDis = (request, response) => {
-        //SELECT * FROM sleep WHERE userid='3' AND sleepstart BETWEEN '2020-01-01' AND '2020-12-31';
         let search;
         let data;
         let queryParam = request.query;
         switch (true) {
             case ((queryParam.date1 != "") && (queryParam.date2 != "")):
+                if (queryParam.date1 > queryParam.date2) {
+                let data = {
+                    error1: "Date 1 must be before Date 2",
+                    username: request.cookies.username
+                }
+                response.render('rest/dis', data)
+            } else {
                 search = "WHERE userid='" + queryParam.userId + "' AND sleepstart BETWEEN '" + queryParam.date1 + "' AND '" + queryParam.date2 +"' ";
                 db.main.selectSleep(search, (error, sleepData) => {
                     if (error) {
@@ -224,6 +230,7 @@ module.exports = (db) => {
                         response.render('rest/slp', data)
                     }
                 })
+            }
             break;
             case ((queryParam.date1 != "") && (queryParam.date2 == "")):
                 search = "WHERE userid='" + queryParam.userId + "' AND sleepstart>'" + queryParam.date1 + "' ";
@@ -288,6 +295,13 @@ module.exports = (db) => {
         let queryParam = request.query;
         switch (true) {
             case ((queryParam.date1 != "") && (queryParam.date2 != "")):
+            if (queryParam.date1 > queryParam.date2) {
+                let data = {
+                    error2: "Date 1 must be before Date 2",
+                    username: request.cookies.username
+                }
+                response.render('rest/dis', data)
+            } else {
                 search = "WHERE userid='" + queryParam.userId + "' AND start BETWEEN '" + queryParam.date1 + "' AND '" + queryParam.date2 +"' ";
                 db.main.selectAct(search, (error, actData) => {
                     if (error) {
@@ -304,6 +318,7 @@ module.exports = (db) => {
                         response.render('rest/act', data)
                     }
                 })
+            }
             break;
             case ((queryParam.date1 != "") && (queryParam.date2 == "")):
                 search = "WHERE userid='" + queryParam.userId + "' AND start>'" + queryParam.date1 + "' ";
@@ -369,6 +384,7 @@ module.exports = (db) => {
         switch (true) {
             case ((queryParam.date1 != "") && (queryParam.date2 != "")):
                 search.act = "WHERE userid='" + queryParam.userId + "' AND start BETWEEN '" + queryParam.date1 + "' AND '" + queryParam.date2 +"' ";
+                search.slp = "WHERE userid='" + queryParam.userId + "' AND sleepstart BETWEEN '" + queryParam.date1 + "' AND '" + queryParam.date2 +"' ";
                 db.main.selectBoth(search, (error, allData) => {
                     if (error) {
                         console.log(error);
@@ -386,7 +402,8 @@ module.exports = (db) => {
                 })
             break;
             case ((queryParam.date1 != "") && (queryParam.date2 == "")):
-                search = "WHERE userid='" + queryParam.userId + "' AND start>'" + queryParam.date1 + "' ";
+                search.act = "WHERE userid='" + queryParam.userId + "' AND start>'" + queryParam.date1 + "' ";
+                search.slp = "WHERE userid='" + queryParam.userId + "' AND sleepstart>'" + queryParam.date1 + "' ";
                 db.main.selectAct(search, (error, allData) => {
                     if (error) {
                         console.log(error);
@@ -404,7 +421,9 @@ module.exports = (db) => {
                 })
             break;
             case ((queryParam.date1 == "") && (queryParam.date2) != ""):
-                search = "WHERE userid='" + queryParam.userId + "' AND start<'" + queryParam.date2 + "' ";
+                search.act = "WHERE userid='" + queryParam.userId + "' AND start<'" + queryParam.date2 + "' ";
+                search.slp = "WHERE userid='" + queryParam.userId + "' AND sleepstart<'" + queryParam.date2 + "' ";
+                console.log(search)
                 db.main.selectAct(search, (error, allData) => {
                     if (error) {
                         console.log(error);
@@ -422,7 +441,8 @@ module.exports = (db) => {
                 })
             break;
             default:
-                search = "WHERE userid='" + queryParam.userId + "' ";
+                search.act = "WHERE userid='" + queryParam.userId + "' ";
+                search.slp = "WHERE userid='" + queryParam.userId + "' ";
                 db.main.selectAct(search, (error, allData) => {
                     if (error) {
                         console.log(error);
@@ -440,6 +460,23 @@ module.exports = (db) => {
                 })
         }
     };
+
+
+    let users = (request, response) => {
+        let data;
+        if (sha256(request.cookies.userId + SALT) === request.cookies.logSess) {
+            data = {
+                username: request.cookies.username
+            }
+            response.render('rest/users', data)
+        } else {
+            response.render('rest/users')
+        }
+    }
+
+
+
+
 
 
     let userLogout = (request, response) => {
@@ -489,6 +526,7 @@ module.exports = (db) => {
         slpDis,
         actDis,
         allDis,
+        users,
         userLogout,
         test
     };

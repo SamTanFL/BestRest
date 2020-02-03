@@ -107,6 +107,10 @@ module.exports = (dbPoolInstance) => {
         selectSleep(details.slp, (err1, slpResults) => {
             selectAct(details.act, (err2, actResults) => {
                 if (err1 || err2) {
+                    console.log("Error 1:")
+                    console.log(err1)
+                    console.log("Error 2:")
+                    console.log(err2)
                     let err = {
                         err1,
                         err2

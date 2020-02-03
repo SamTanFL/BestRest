@@ -29,6 +29,7 @@ class Slp extends React.Component {
                             <input type="hidden" name="userId" value={this.props.userId} />
                             <div>
                                 <button className="btn btn-primary" type="submit">Display</button>
+                                <span><small className="text-danger">{this.props.error1}</small></span>
                             </div>
                         </form>
                     </div>
@@ -44,11 +45,12 @@ class Slp extends React.Component {
                             <input type="hidden" name="userId" value={this.props.userId} />
                             <div>
                                 <button className="btn btn-primary" type="submit">Display</button>
+                                <span><small className="text-danger">{this.props.error2}</small></span>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div className="bg-secondary p-3">
+{/*                <div className="bg-secondary p-3">
                     <div className="container">
                         <form action="/all/display">
                             <h3 className="text-light">Show Sleep & Activity From <span className="text-decoration-underline">Date 1</span> to <span className="text-decoration-underline">Date 2</span></h3>
@@ -62,7 +64,7 @@ class Slp extends React.Component {
                             </div>
                         </form>
                     </div>
-                </div>
+                </div>*/}
             <Footer />
         </body>
       </html>
