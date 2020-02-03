@@ -6,7 +6,7 @@ body {
 
 footer {
 /*    background-color: rgba(35, 49, 84, 1) !important;*/
-    position: absolute;
+    position: fixed;
     padding: 10px;
     bottom: 0;
     width: 100%;

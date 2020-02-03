@@ -293,11 +293,14 @@ module.exports = (db) => {
                     if (error) {
                         console.log(error);
                         data = {
-                            error: "something is wrong at slpDis"
+                            error: "something is wrong at actDis"
                         };
                         response.render('error', data);
                     } else {
-                        data = { actData };
+                        data = {
+                            actData,
+                            username: request.cookies.username
+                        };
                         response.render('rest/act', data)
                     }
                 })
@@ -308,11 +311,14 @@ module.exports = (db) => {
                     if (error) {
                         console.log(error);
                         data = {
-                            error: "something is wrong at slpDis"
+                            error: "something is wrong at actDis"
                         };
                         response.render('error', data);
                     } else {
-                        data = { actData };
+                        data = {
+                            actData,
+                            username: request.cookies.username
+                        };
                         response.render('rest/act', data)
                     }
                 })
@@ -323,11 +329,14 @@ module.exports = (db) => {
                     if (error) {
                         console.log(error);
                         data = {
-                            error: "something is wrong at slpDis"
+                            error: "something is wrong at actDis"
                         };
                         response.render('error', data);
                     } else {
-                        data = { actData };
+                        data = {
+                            actData,
+                            username: request.cookies.username
+                        };
                         response.render('rest/act', data)
                     }
                 })
@@ -338,11 +347,14 @@ module.exports = (db) => {
                     if (error) {
                         console.log(error);
                         data = {
-                            error: "something is wrong at slpDis"
+                            error: "something is wrong at actDis"
                         };
                         response.render('error', data);
                     } else {
-                        data = { actData };
+                        data = {
+                            actData,
+                            username: request.cookies.username
+                        };
                         response.render('rest/act', data)
                     }
                 })
@@ -351,22 +363,82 @@ module.exports = (db) => {
 
 
     let allDis = (request, response) => {
+        let search = {};
+        let data;
         let queryParam = request.query;
         switch (true) {
-            case (queryParam.date1 && queryParam.date2):
-
+            case ((queryParam.date1 != "") && (queryParam.date2 != "")):
+                search.act = "WHERE userid='" + queryParam.userId + "' AND start BETWEEN '" + queryParam.date1 + "' AND '" + queryParam.date2 +"' ";
+                db.main.selectBoth(search, (error, allData) => {
+                    if (error) {
+                        console.log(error);
+                        data = {
+                            error: "something is wrong at allDis"
+                        };
+                        response.render('error', data);
+                    } else {
+                        data = {
+                            allData,
+                            username: request.cookies.username
+                        };
+                        response.render('rest/act', data)
+                    }
+                })
             break;
-            case (queryParam.date1 && !queryParam.date2):
-
+            case ((queryParam.date1 != "") && (queryParam.date2 == "")):
+                search = "WHERE userid='" + queryParam.userId + "' AND start>'" + queryParam.date1 + "' ";
+                db.main.selectAct(search, (error, allData) => {
+                    if (error) {
+                        console.log(error);
+                        data = {
+                            error: "something is wrong at allDis"
+                        };
+                        response.render('error', data);
+                    } else {
+                        data = {
+                            allData,
+                            username: request.cookies.username
+                        };
+                        response.render('rest/act', data)
+                    }
+                })
             break;
-            case (!queryParam.date1 && queryParam.date2):
-
+            case ((queryParam.date1 == "") && (queryParam.date2) != ""):
+                search = "WHERE userid='" + queryParam.userId + "' AND start<'" + queryParam.date2 + "' ";
+                db.main.selectAct(search, (error, allData) => {
+                    if (error) {
+                        console.log(error);
+                        data = {
+                            error: "something is wrong at allDis"
+                        };
+                        response.render('error', data);
+                    } else {
+                        data = {
+                            allData,
+                            username: request.cookies.username
+                        };
+                        response.render('rest/act', data)
+                    }
+                })
             break;
             default:
-
+                search = "WHERE userid='" + queryParam.userId + "' ";
+                db.main.selectAct(search, (error, allData) => {
+                    if (error) {
+                        console.log(error);
+                        data = {
+                            error: "something is wrong at allDis"
+                        };
+                        response.render('error', data);
+                    } else {
+                        data = {
+                            allData,
+                            username: request.cookies.username
+                        };
+                        response.render('rest/act', data)
+                    }
+                })
         }
-        //not done yet
-        response.redirect('/');
     };
 
 

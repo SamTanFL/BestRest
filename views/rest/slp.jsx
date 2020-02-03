@@ -9,7 +9,7 @@ class Act extends React.Component {
         console.log("THIS IS IN THE JSX. sleepData:")
         console.log(this.props.sleepData)
         let sleepEle = this.props.sleepData.map(sleep => {
-            let date = "" + sleep.sleepstart.getDate() + "/" + sleep.sleepstart.getMonth() + "/" + sleep.sleepstart.getFullYear();
+            let date = "" + sleep.sleepstart.getDate() + "/" + (sleep.sleepstart.getMonth()+1) + "/" + sleep.sleepstart.getFullYear();
             let duration = Math.ceil(parseInt(sleep.duration)/3600000);
             return (
                 <div className="container bg-dark">

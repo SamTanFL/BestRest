@@ -3,7 +3,7 @@ var React = require('react');
 class Footer extends React.Component {
     render() {
         return (
-            <footer className="bg-dark">
+            <footer className="footer bg-dark">
                 <div className="container">
                     <div>This is by me. Sam.</div>
                     <script
