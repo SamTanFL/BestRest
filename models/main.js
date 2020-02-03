@@ -8,8 +8,8 @@ module.exports = (dbPoolInstance) => {
 
     //for registering users
     let insertUser = (details, callback) => {
-        let query = "INSERT INTO users (username, passhash) VALUES ($1, $2) RETURNING id;";
-        let values = [details.username, details.passhash];
+        let query = "INSERT INTO users (username, passhash, age) VALUES ($1, $2, $3) RETURNING id;";
+        let values = [details.username, details.passhash, details.age];
         dbPoolInstance.query(query, values, (err, queryResult) => {
             if (err) {
                 callback(err, null);

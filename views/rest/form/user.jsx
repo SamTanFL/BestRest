@@ -19,6 +19,11 @@ class User extends React.Component {
                         <small className="text-danger">{this.props.nameError}</small>
                     </div>
                     <div className="form-group">
+                        <label>Age :</label>
+                        <input type="number" className="form-control" name="age" min="0" max="150" required/>
+                        <small className="text-danger">{this.props.ageError}</small>
+                    </div>
+                    <div className="form-group">
                         <label>Password :</label>
                         <input type="text" className="form-control" name="password"/>
                         <small className="text-danger">{this.props.passError}</small>

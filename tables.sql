@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     username TEXT NOT NULL,
     passhash TEXT NOT NULL,
+    age INTEGER NOT NULL,
     UNIQUE(username)
 );
 

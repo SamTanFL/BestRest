@@ -13,20 +13,21 @@ module.exports = (db) => {
 
 
     let index = (request, response) => {
-        if (sha256(request.cookies.userId + SALT) === request.cookies.logSess) {
-            let searchPara = "WHERE id='" + request.cookies.userId + "'";
-            db.main.checkUser(searchPara, (error, userResult) => {
-                if (error) {
-                    let data = {error};
-                    response.render('error', data)
+        let data
+        if (request.cookies.userId && request.cookies.logSess) {
+            if (sha256(request.cookies.userId + SALT) === request.cookies.logSess) {
+                data = {
+                    username: request.cookies.username
+                };
+                response.render('rest/home', data)
+            } else {
+                data = {
+                    error: "Something is wrong here"
                 }
-                let data = {
-                    username: userResult.username
-                }
-                response.render('rest/home', data);
-            })
+                response.render('error', data)
+            } // end of else if something is wrong
         } else {
-            response.render('rest/home');
+            response.render('rest/home')
         }
     };
 
@@ -95,11 +96,13 @@ module.exports = (db) => {
                 let passhash = sha256(details.password + SALT);
                 let data = {
                     username : details.username,
-                    passhash
+                    passhash,
+                    age: parseInt(details.age)
                 }
                 db.main.insertUser(data, (error, userId) => {
                     response.cookie("userId", userId);
                     response.cookie("logSess", sha256(userId + SALT));
+                    response.cookie("username", details.username)
                     response.redirect('/');
                 })
             }
@@ -127,6 +130,7 @@ module.exports = (db) => {
                         data = {error : "Invalid Password"}
                         response.render('rest/home', data)
                     } else {
+                        response.cookie("username", userResult.username);
                         response.cookie("userId", userResult.id);
                         response.cookie("logSess", (sha256(userResult.id + SALT)));
                         response.redirect('/');

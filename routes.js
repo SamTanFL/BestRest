@@ -42,8 +42,8 @@ module.exports = (app, allModels) => {
     //form for tracking activities
     app.get('/activity/new', mainControllerCallbacks.actForm);
 
-    //test route
-    app.get('*', mainControllerCallbacks.index);
+/*    //test route
+    app.get('*', mainControllerCallbacks.index);*/
 
 
     /*

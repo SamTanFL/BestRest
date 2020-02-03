@@ -13,7 +13,18 @@ class Slp extends React.Component {
         <body>
             <Navbar username={this.props.username}/>
             <div className="container">
-                <h1>Better Get Some Rest</h1>
+                <form>
+
+                </form>
+                <form>
+
+                </form>
+                <form>
+
+                </form>
+                <form>
+
+                </form>
             </div>
             <Footer />
         </body>
