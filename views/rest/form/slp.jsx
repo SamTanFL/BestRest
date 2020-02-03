@@ -13,6 +13,7 @@ class Slp extends React.Component {
             <Navbar username={this.props.username}/>
             <div className="container">
                 <h1>Track Sleep</h1>
+                <p>{endError}</p>
                 <form action="/sleep" method="POST">
                     <div className="form-group">
                         <input type="hidden" name="userId" value={this.props.userId}/>
@@ -25,7 +26,7 @@ class Slp extends React.Component {
                     </div>
                     <div className="form-group">
                         <label>Sleep End :</label>
-                        <p>{endError}</p>
+
                         <input type="datetime-local" className="form-control" name="sleepend" defaultValue="2020-01-01T12:00"/>
                     </div>
                     <div className="form-group">
