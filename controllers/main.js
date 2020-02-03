@@ -102,8 +102,9 @@ module.exports = (db) => {
                 db.main.insertUser(data, (error, userId) => {
                     response.cookie("userId", userId);
                     response.cookie("logSess", sha256(userId + SALT));
-                    response.cookie("username", details.username)
-                    response.redirect('/');
+                    response.cookie("username", details.username);
+                    let redirectUrl = '/sleep/display?date1=&date2=&userId=' + userId;
+                    response.redirect(redirectUrl);
                 })
             }
         });
@@ -133,7 +134,8 @@ module.exports = (db) => {
                         response.cookie("username", userResult.username);
                         response.cookie("userId", userResult.id);
                         response.cookie("logSess", (sha256(userResult.id + SALT)));
-                        response.redirect('/');
+                        let redirectUrl = '/sleep/display?date1=&date2=&userId=' + userResult.id;
+                        response.redirect(redirectUrl);
                     }
                 }
             }
@@ -156,7 +158,7 @@ module.exports = (db) => {
             if (error) {
                 response.render('error', error);
             } else {
-                let link = "/sleep/" + sleepId
+                let link = "/sleep/display?date1=&date2=&userId=" + data.userId
                 response.redirect(link);
             };
         });
