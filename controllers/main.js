@@ -206,17 +206,8 @@ module.exports = (db) => {
         let search;
         let data;
         let queryParam = request.query;
-        console.log("QUERY HERE");
-        console.log(queryParam);
-        if (queryParam.date1) {
-            console.log(queryParam.date1)
-        }
-        if (queryParam.date2) {
-            console.log(queryParam.date2)
-        }
         switch (true) {
             case ((queryParam.date1 != "") && (queryParam.date2 != "")):
-                console.log("i'm getting here");
                 search = "WHERE userid='" + queryParam.userId + "' AND sleepstart BETWEEN '" + queryParam.date1 + "' AND '" + queryParam.date2 +"' ";
                 db.main.selectSleep(search, (error, sleepData) => {
                     if (error) {
@@ -231,38 +222,119 @@ module.exports = (db) => {
                     }
                 })
             break;
-            case ((queryParam.date1 !== "") && (queryParam.date2 == "")):
-                console.log("d1 t d2 f");
-                response.redirect('/');
+            case ((queryParam.date1 != "") && (queryParam.date2 == "")):
+                search = "WHERE userid='" + queryParam.userId + "' AND sleepstart>'" + queryParam.date1 + "' ";
+                db.main.selectSleep(search, (error, sleepData) => {
+                    if (error) {
+                        console.log(error);
+                        data = {
+                            error: "something is wrong at slpDis"
+                        };
+                        response.render('error', data);
+                    } else {
+                        data = { sleepData };
+                        response.render('rest/slp', data)
+                    }
+                })
             break;
-            case ((queryParam.date1 == "") && (queryParam.date2) !== ""):
-                console.log("d1 f d2 t");
-                response.redirect('/');
+            case ((queryParam.date1 == "") && (queryParam.date2) != ""):
+                search = "WHERE userid='" + queryParam.userId + "' AND sleepstart<'" + queryParam.date2 + "' ";
+                db.main.selectSleep(search, (error, sleepData) => {
+                    if (error) {
+                        console.log(error);
+                        data = {
+                            error: "something is wrong at slpDis"
+                        };
+                        response.render('error', data);
+                    } else {
+                        data = { sleepData };
+                        response.render('rest/slp', data)
+                    }
+                })
             break;
             default:
-                console.log("how did I get here?");
-                response.redirect('/')
+                search = "WHERE userid='" + queryParam.userId + "' ";
+                db.main.selectSleep(search, (error, sleepData) => {
+                    if (error) {
+                        console.log(error);
+                        data = {
+                            error: "something is wrong at slpDis"
+                        };
+                        response.render('error', data);
+                    } else {
+                        data = { sleepData };
+                        response.render('rest/slp', data)
+                    }
+                })
         }
     };
 
 
     let actDis = (request, response) => {
+        let search;
+        let data;
         let queryParam = request.query;
         switch (true) {
-            case (queryParam.date1 && queryParam.date2):
-
+            case ((queryParam.date1 != "") && (queryParam.date2 != "")):
+                search = "WHERE userid='" + queryParam.userId + "' AND start BETWEEN '" + queryParam.date1 + "' AND '" + queryParam.date2 +"' ";
+                db.main.selectAct(search, (error, actData) => {
+                    if (error) {
+                        console.log(error);
+                        data = {
+                            error: "something is wrong at slpDis"
+                        };
+                        response.render('error', data);
+                    } else {
+                        data = { actData };
+                        response.render('rest/slp', data)
+                    }
+                })
             break;
-            case (queryParam.date1 && !queryParam.date2):
-
+            case ((queryParam.date1 != "") && (queryParam.date2 == "")):
+                search = "WHERE userid='" + queryParam.userId + "' AND start>'" + queryParam.date1 + "' ";
+                db.main.selectAct(search, (error, actData) => {
+                    if (error) {
+                        console.log(error);
+                        data = {
+                            error: "something is wrong at slpDis"
+                        };
+                        response.render('error', data);
+                    } else {
+                        data = { actData };
+                        response.render('rest/slp', data)
+                    }
+                })
             break;
-            case (!queryParam.date1 && queryParam.date2):
-
+            case ((queryParam.date1 == "") && (queryParam.date2) != ""):
+                search = "WHERE userid='" + queryParam.userId + "' AND start<'" + queryParam.date2 + "' ";
+                db.main.selectAct(search, (error, actData) => {
+                    if (error) {
+                        console.log(error);
+                        data = {
+                            error: "something is wrong at slpDis"
+                        };
+                        response.render('error', data);
+                    } else {
+                        data = { actData };
+                        response.render('rest/slp', data)
+                    }
+                })
             break;
             default:
-
+                search = "WHERE userid='" + queryParam.userId + "' ";
+                db.main.selectAct(search, (error, actData) => {
+                    if (error) {
+                        console.log(error);
+                        data = {
+                            error: "something is wrong at slpDis"
+                        };
+                        response.render('error', data);
+                    } else {
+                        data = { actData };
+                        response.render('rest/slp', data)
+                    }
+                })
         }
-        //not done yet
-        response.redirect('/');
     };
 
 
