@@ -215,7 +215,7 @@ module.exports = (db) => {
             console.log(queryParam.date2)
         }
         switch (true) {
-            case ((queryParam.date1 !== null) && (queryParam.date2 !== null)):
+            case ((queryParam.date1 != "") && (queryParam.date2 != "")):
                 console.log("i'm getting here");
                 search = "WHERE userid='" + queryParam.userId + "' AND sleepstart BETWEEN '" + queryParam.date1 + "' AND '" + queryParam.date2 +"' ";
                 db.main.selectSleep(search, (error, sleepData) => {
@@ -231,11 +231,13 @@ module.exports = (db) => {
                     }
                 })
             break;
-            case (queryParam.date1 && !queryParam.date2):
-
+            case ((queryParam.date1 !== "") && (queryParam.date2 == "")):
+                console.log("d1 t d2 f");
+                response.redirect('/');
             break;
-            case (!queryParam.date1 && queryParam.date2):
-
+            case ((queryParam.date1 == "") && (queryParam.date2) !== ""):
+                console.log("d1 f d2 t");
+                response.redirect('/');
             break;
             default:
                 console.log("how did I get here?");
