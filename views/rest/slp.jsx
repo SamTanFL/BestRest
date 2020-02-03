@@ -5,7 +5,8 @@ var Footer = require("../footer")
 
 class Act extends React.Component {
   render() {
-
+    console.log("THIS IS IN THE JSX. sleepData:")
+    console.log(this.props.sleepData)
 
     return (
       <html>

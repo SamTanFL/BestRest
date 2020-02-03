@@ -202,18 +202,83 @@ module.exports = (db) => {
 
 
     let slpDis = (request, response) => {
-        //not done yet
-        response.redirect('/');
+        //SELECT * FROM sleep WHERE userid='3' AND sleepstart BETWEEN '2020-01-01' AND '2020-12-31';
+        let search;
+        let data;
+        let queryParam = request.query;
+        console.log("QUERY HERE");
+        console.log(queryParam);
+        if (queryParam.date1) {
+            console.log(queryParam.date1)
+        }
+        if (queryParam.date2) {
+            console.log(queryParam.date2)
+        }
+        switch (true) {
+            case ((queryParam.date1 !== null) && (queryParam.date2 !== null)):
+                console.log("i'm getting here");
+                search = "WHERE userid='" + queryParam.userId + "' AND sleepstart BETWEEN '" + queryParam.date1 + "' AND '" + queryParam.date2 +"' ";
+                db.main.selectSleep(search, (error, sleepData) => {
+                    if (error) {
+                        console.log(error);
+                        data = {
+                            error: "something is wrong at slpDis"
+                        };
+                        response.render('error', data);
+                    } else {
+                        data = { sleepData };
+                        response.render('rest/slp', data)
+                    }
+                })
+            break;
+            case (queryParam.date1 && !queryParam.date2):
+
+            break;
+            case (!queryParam.date1 && queryParam.date2):
+
+            break;
+            default:
+                console.log("how did I get here?");
+                response.redirect('/')
+        }
     };
 
 
     let actDis = (request, response) => {
+        let queryParam = request.query;
+        switch (true) {
+            case (queryParam.date1 && queryParam.date2):
+
+            break;
+            case (queryParam.date1 && !queryParam.date2):
+
+            break;
+            case (!queryParam.date1 && queryParam.date2):
+
+            break;
+            default:
+
+        }
         //not done yet
         response.redirect('/');
     };
 
 
     let allDis = (request, response) => {
+        let queryParam = request.query;
+        switch (true) {
+            case (queryParam.date1 && queryParam.date2):
+
+            break;
+            case (queryParam.date1 && !queryParam.date2):
+
+            break;
+            case (!queryParam.date1 && queryParam.date2):
+
+            break;
+            default:
+
+        }
         //not done yet
         response.redirect('/');
     };

@@ -67,7 +67,7 @@ module.exports = (dbPoolInstance) => {
 
     //selecting from SLEEP table
     let selectSleep = (details, callback) => {
-        let query = "SELECT * FROM sleep" + details + "ORDER BY sleepstart ASC";
+        let query = "SELECT * FROM sleep " + details + "ORDER BY sleepstart ASC";
         dbPoolInstance.query(query, (err, queryResult) => {
             if (err) {
                 callback(err, null);
@@ -85,7 +85,7 @@ module.exports = (dbPoolInstance) => {
 
     //selecting from ACTIVITY table
     let selectAct = (details, callback) => {
-        let query = "SELECT * FROM activity" + details + "ORDER BY start ASC";
+        let query = "SELECT * FROM activity " + details + "ORDER BY start ASC";
         dbPoolInstance.query(query, (err, queryResult) => {
             if (err) {
                 callback(err, null);
