@@ -37,13 +37,13 @@ module.exports = (app, allModels) => {
     app.get('/sleep/new', mainControllerCallbacks.slpForm);
 
     //to display page for sleeping
-    app.get('/sleep', mainControllerCallbacks.slpDisAll)
+    app.get('/sleep', mainControllerCallbacks.slpDis)
 
     //form for tracking activities
     app.get('/activity/new', mainControllerCallbacks.actForm);
 
-/*    //test route
-    app.get('*', mainControllerCallbacks.index);*/
+    //test route
+    app.get('*', mainControllerCallbacks.index);
 
 
     /*
