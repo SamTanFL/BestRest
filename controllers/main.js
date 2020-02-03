@@ -48,13 +48,11 @@ module.exports = (db) => {
     let slpForm = (request, response) => {
         if (sha256(request.cookies.userId + SALT) === request.cookies.logSess){
             let searchPara = "WHERE id=" + request.cookies.userId;
-            db.main.checkUser(searchPara, (error, userResult) => {
                 let data = {
                     userId : request.cookies.userId,
-                    username : userResult.username
+                    username : request.cookies.username
                 };
                 response.render('rest/form/slp', data);
-            });
         } else {
             let data = {
                 error : "Please Login"
@@ -146,22 +144,30 @@ module.exports = (db) => {
 
     let slpPost = (request, response) => {
         let data = request.body
-        let duration = moment(data.sleepend) - moment(data.sleepstart);
-        let details = {
-            userId : data.userId,
-            sleepstart : data.sleepstart,
-            sleepend : data.sleepend,
-            duration,
-            notes : data.notes
-        };
-        db.main.insertSleep(details, (error, sleepId) => {
-            if (error) {
-                response.render('error', error);
-            } else {
-                let link = "/sleep/display?date1=&date2=&userId=" + data.userId
-                response.redirect(link);
+        if (data.sleepstart > data.sleepend) {
+            data1 = {
+                error: "Sleep Start needs to be Before Sleep End",
+                username: request.cookies.username
+            }
+            response.render('rest/form/slp', data1)
+        } else {
+            let duration = moment(data.sleepend) - moment(data.sleepstart);
+            let details = {
+                userId : data.userId,
+                sleepstart : data.sleepstart,
+                sleepend : data.sleepend,
+                duration,
+                notes : data.notes
             };
-        });
+            db.main.insertSleep(details, (error, sleepId) => {
+                if (error) {
+                    response.render('error', error);
+                } else {
+                    let link = "/sleep/display?date1=&date2=&userId=" + data.userId
+                    response.redirect(link);
+                };
+            });
+        }
     };
 
 
@@ -485,7 +491,7 @@ module.exports = (db) => {
         response.clearCookie('logSess');
         response.clearCookie('userId');
         response.clearCookie('username')
-        response.redirect('back');
+        response.redirect('/');
     }
 
 
