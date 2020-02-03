@@ -286,7 +286,7 @@ module.exports = (db) => {
                         response.render('error', data);
                     } else {
                         data = { actData };
-                        response.render('rest/slp', data)
+                        response.render('rest/act', data)
                     }
                 })
             break;
@@ -301,7 +301,7 @@ module.exports = (db) => {
                         response.render('error', data);
                     } else {
                         data = { actData };
-                        response.render('rest/slp', data)
+                        response.render('rest/act', data)
                     }
                 })
             break;
@@ -316,7 +316,7 @@ module.exports = (db) => {
                         response.render('error', data);
                     } else {
                         data = { actData };
-                        response.render('rest/slp', data)
+                        response.render('rest/act', data)
                     }
                 })
             break;
@@ -331,7 +331,7 @@ module.exports = (db) => {
                         response.render('error', data);
                     } else {
                         data = { actData };
-                        response.render('rest/slp', data)
+                        response.render('rest/act', data)
                     }
                 })
         }

@@ -41,7 +41,7 @@ class Slp extends React.Component {
                             <input type="date" name="date1" />
                             <label>Date 2:</label>
                             <input type="date" name="date2" defaultValue={dateToday} />
-                            <input type="hidden" name="userId" />
+                            <input type="hidden" name="userId" value={this.props.userId} />
                             <div>
                                 <button className="btn btn-primary" type="submit">Display</button>
                             </div>
@@ -56,7 +56,7 @@ class Slp extends React.Component {
                             <input type="date" name="date1" />
                             <label>Date 2:</label>
                             <input type="date" name="date2" defaultValue={dateToday} />
-                            <input type="hidden" name="userId" />
+                            <input type="hidden" name="userId" value={this.props.userId} />
                             <div>
                                 <button className="btn btn-primary" type="submit">Display</button>
                             </div>
