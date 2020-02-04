@@ -64,28 +64,35 @@ module.exports = (db) => {
 
     let slpPutForm = (request, response) => {
         let data;
-        let searchPara = "WHERE id='" + request.query.slpid + "' ";
-        db.main.selectSleep(searchPara, (error, slpDetails) => {
-            if (error) {
-                console.log("ERROR HERE : ", error)
-            } else {
-                if (slpDetails === null) {
-                    let data = {
-                    error: "Unable to find entry",
-                    username: request.cookies.username
-                    }
-                    response.render('error', data)
+        if (sha256(request.cookies.userId + SALT) === request.cookies.logSess) {
+            let searchPara = "WHERE id='" + request.query.actid + "' ";
+            db.main.selectAct(searchPara, (error, slpDetails) => {
+                if (error) {
+                    console.log("ERROR HERE : ", error)
                 } else {
-                    data = {
-                        slpDetails: slpDetails[0],
-                        userId : request.cookies.userId,
-                        username : request.cookies.username
+                    if (slpDetails === null) {
+                        data = {
+                        error: "Unable to find entry",
+                        username: request.cookies.username
+                        }
+                        response.render('error', data)
+                    } else {
+                        data = {
+                            slpDetails: slpDetails[0],
+                            userId : request.cookies.userId,
+                            username : request.cookies.username
+                        }
+                        response.render('rest/form/slpedit', data)
                     }
-                    response.render('rest/form/slpedit', data)
                 }
-            }
-        })
-    }
+            })
+        } else {
+            data = {
+                error: "Please Login",
+            };
+            response.render('error', data)
+        };
+    };
 
 
     let actForm = (request, response) => {
@@ -104,6 +111,13 @@ module.exports = (db) => {
             };
             response.render('error', data)
         };
+    };
+
+
+    let actPutForm = (request, response) => {
+        if (sha256(request.cookies.userId + SALT) === request.cookies.logSess) {
+
+        }
     };
 
 
@@ -616,6 +630,7 @@ module.exports = (db) => {
         slpForm,
         slpPutForm,
         actForm,
+        actPutForm,
         userPost,
         userLogin,
         slpPost,

@@ -3,7 +3,7 @@ var Head = require("../../head")
 var Navbar = require("../../navbar")
 var Footer = require("../../footer")
 
-class Slp extends React.Component {
+class SlpEdit extends React.Component {
   render() {
     let slpDetails = this.props.slpDetails
     let slp = {
@@ -77,4 +77,4 @@ class Slp extends React.Component {
   }
 }
 
-module.exports = Slp;
+module.exports = SlpEdit;
