@@ -287,7 +287,7 @@ module.exports = (db) => {
                             error: "something is wrong at slpDis"
                         };
                         response.render('error', data);
-                    } else if (sleepData.length > 0) {
+                    } else if (sleepData != null) {
                         data = {
                             sleepData,
                             username: request.cookies.username
