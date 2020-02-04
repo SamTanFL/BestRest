@@ -554,6 +554,23 @@ module.exports = (db) => {
     }
 
 
+    let usersSum = (request, response) => {
+        switch (request.query.duration) {
+            case "week":
+
+            break;
+            case "month":
+
+            break;
+            case "year":
+
+            break;
+            default:
+                response.send("This works")
+        }
+    }
+
+
 
 
 
@@ -705,6 +722,7 @@ module.exports = (db) => {
         actDis,
         allDis,
         users,
+        usersSum,
         userLogout,
         slpDel,
         slpPut,
