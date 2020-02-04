@@ -119,6 +119,9 @@ module.exports = (app, allModels) => {
      //delete route for deleting slp
      app.delete('/sleep', mainControllerCallbacks.slpDel)
 
+     //delete for activities
+     app.delete('/activity', mainControllerCallbacks.actDel)
+
      //delete route to log user out
      app.delete('/users/logout', mainControllerCallbacks.userLogout);
 

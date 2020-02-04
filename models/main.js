@@ -168,6 +168,24 @@ module.exports = (dbPoolInstance) => {
     };
 
 
+    let delAct = (actid, callback) => {
+        let query = "DELETE FROM activity WHERE id='" + actid + "' RETURNING userid;";
+        dbPoolInstance.query(query, (err, queryResult) => {
+            if (err) {
+                callback(err, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows[0].userid);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+
+
+
     let editSleep = (details, callback) => {
         let query = "UPDATE sleep SET userid=$1, sleepstart=$2, sleepend=$3, duration=$4, notes=$5 WHERE id=$6 RETURNING userid"
         let values = [details.userid, details.start, details.end, details.duration, details.notes, details.id];
@@ -183,6 +201,24 @@ module.exports = (dbPoolInstance) => {
             }
         });
     };
+
+
+    let editAct = (details, callback) => {
+        let query = "UPDATE sleep SET userid=$1, sleepstart=$2, sleepend=$3, duration=$4, notes=$5 WHERE id=$6 RETURNING userid"
+        let values = [details.userid, details.start, details.end, details.duration, details.notes, details.id];
+        dbPoolInstance.query(query, values, (err, queryResult) => {
+            if (err) {
+                callback(err, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows[0].id);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
 
 
 
@@ -206,7 +242,9 @@ module.exports = (dbPoolInstance) => {
         selectBoth,
         checkUser,
         delSleep,
+        delAct,
         editSleep,
+        editAct,
         test
     };
 };
