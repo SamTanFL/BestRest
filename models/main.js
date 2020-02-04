@@ -47,8 +47,8 @@ module.exports = (dbPoolInstance) => {
 
     //for inserting into ACTIVITY table
     let insertAct = (details, callback) => {
-        let query = "INSERT INTO activity (userId, name, start, benefit) VALUES ($1, $2, $3, $4) RETURNING id;"
-        let values = [details.userId, details.name, details.start, details.benefit];
+        let query = "INSERT INTO activity (userId, name, start, benefit, notes) VALUES ($1, $2, $3, $4, $5) RETURNING id;"
+        let values = [details.userId, details.name, details.start, details.benefit, details.notes];
         dbPoolInstance.query(query, values, (err, queryResult) => {
             if( err ){
                 // invoke callback function with results after query has executed
@@ -204,14 +204,14 @@ module.exports = (dbPoolInstance) => {
 
 
     let editAct = (details, callback) => {
-        let query = "UPDATE sleep SET userid=$1, sleepstart=$2, sleepend=$3, duration=$4, notes=$5 WHERE id=$6 RETURNING userid"
-        let values = [details.userid, details.start, details.end, details.duration, details.notes, details.id];
+        let query = "UPDATE activity SET userid=$1, name=$2, start=$3, benefit=$4, notes=$5 WHERE id=$6 RETURNING userid"
+        let values = [details.userid, details.name, details.start, details.benefit, details.notes, details.id];
         dbPoolInstance.query(query, values, (err, queryResult) => {
             if (err) {
                 callback(err, null);
             } else {
                 if (queryResult.rows.length > 0) {
-                    callback(null, queryResult.rows[0].id);
+                    callback(null, queryResult.rows[0].userid);
                 } else {
                     callback(null, null);
                 }

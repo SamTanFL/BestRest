@@ -11,11 +11,11 @@ class Act extends React.Component {
                 <div className="container bg-dark col-6">
                     <form action="/activity?_method=delete" method="POST">
                         <button className="button bg-danger">Delete</button>
-                        <input type="hidden" name="actid" value={act.id}/>
+                        <input type="hidden" name="actid" value={act.id} />
                     </form>
                     <form action="/activity/edit">
                         <button className="button bg-secondary">Edit</button>
-                        <input type="hidden" name="actid" value={act.id}/>
+                        <input type="hidden" name="actid" value={act.id} />
                     </form>
                     <p>
                         <label>Activity:</label>

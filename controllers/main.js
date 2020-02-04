@@ -115,8 +115,23 @@ module.exports = (db) => {
 
 
     let actPutForm = (request, response) => {
+        let data;
         if (sha256(request.cookies.userId + SALT) === request.cookies.logSess) {
-
+            let actId = request.query.actid;
+            let searchPara = "WHERE id='" + actId + "' ";
+            db.main.selectAct(searchPara, (error, actData) => {
+                data = {
+                    actData: actData[0],
+                    username: request.cookies.username,
+                    userId: request.cookies.userId
+                };
+                response.render('rest/form/actedit', data)
+            });
+        } else {
+            data = {
+                error : "Please Login"
+            };
+            response.render('error', data)
         }
     };
 
@@ -223,7 +238,8 @@ module.exports = (db) => {
             userId : data.userId,
             name : data.name,
             start : data.start,
-            benefit
+            benefit,
+            notes: data.notes
         };
         db.main.insertAct(details, (error, actId) => {
             if (error) {
@@ -616,29 +632,33 @@ module.exports = (db) => {
 
 
     let actPut = (request, response) => {
+        let benefit = false;
+        if (request.body.benefit == "true") {
+            let benefit = true;
+        }
         let details = {
             userid: request.body.userId,
-            start: request.body.sleepstart,
-            end: request.body.sleepend,
-            duration: moment(request.body.sleepend) - moment(request.body.sleepstart),
+            name: request.body.name,
+            start: request.body.start,
+            benefit,
             notes: request.body.notes,
-            id: request.body.slpid
+            id: request.body.actid
         }
-        db.main.editSleep(details, (error, userid) => {
+        db.main.editAct(details, (error, userid) => {
             if (error) {
-                console.log("ERROR IN SLPPUT : ", error);
+                console.log("ERROR IN ACTPUT : ", error);
                 let data = {
-                    error: "THERES AN ERROR MATE IN SLP PUT"
+                    error: "THERES AN ERROR MATE IN ACT PUT"
                 }
                 response.render('error', data)
             } else {
                 if (userid === null) {
-                let data = {
-                    error: "Unable to find entry"
-                }
-                response.render('error', data)
+                    let data = {
+                        error: "Unable to find entry"
+                    }
+                    response.render('error', data)
                 } else {
-                    let url = "/sleep/display?date1=&date2=&userId=" + request.cookies.userId
+                    let url = "/activity/display?date1=&date2=&userId=" + request.cookies.userId
                     response.redirect(url)
                 }
             }

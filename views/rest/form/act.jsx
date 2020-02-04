@@ -30,6 +30,10 @@ class Act extends React.Component {
                         <input type="checkbox" className="form-check" name="benefit" defaultValue="true"/>
                         <small>Was the activity beneficial to your Sleep Hygiene</small>
                     </div>
+                    <div className="form-group">
+                        <label>Notes :</label>
+                        <input type="text" className="form-control" placeholder="Anything of Notes" name="notes" />
+                    </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>

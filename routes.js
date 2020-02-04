@@ -36,6 +36,9 @@ module.exports = (app, allModels) => {
     //Route for the form editing my sleep data
     app.get('/sleep/edit', mainControllerCallbacks.slpPutForm)
 
+    //Route for the form editing my activity data
+    app.get('/activity/edit', mainControllerCallbacks.actPutForm)
+
     //form for tracking sleep
     app.get('/sleep/new', mainControllerCallbacks.slpForm);
 
@@ -99,8 +102,11 @@ module.exports = (app, allModels) => {
      */
 
 
-     //Route for editing my sleep data
+    //Route for editing my sleep data
     app.put('/sleep', mainControllerCallbacks.slpPut);
+
+    //Route for editing my act data
+    app.put('/activity', mainControllerCallbacks.actPut);
 
 
 
