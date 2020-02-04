@@ -277,9 +277,11 @@ module.exports = (db) => {
                 })
             break;
             default:
+                console.log("I shld be able to reach here no problem")
                 search = "WHERE userid='" + queryParam.userId + "' ";
                 db.main.selectSleep(search, (error, sleepData) => {
                     if (error) {
+                        console.log("Hello Error :")
                         console.log(error);
                         data = {
                             error: "something is wrong at slpDis"
@@ -292,6 +294,7 @@ module.exports = (db) => {
                             };
                         response.render('rest/slp', data)
                     } else {
+                        console.log("Am I here yet?")
                         response.redirect('/sleep/new')
                     }
                 })
