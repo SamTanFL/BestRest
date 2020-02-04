@@ -118,7 +118,7 @@ module.exports = (db) => {
         let searchPara = "WHERE username='" + details.username + "'";
         db.main.checkUser(searchPara, (error, userResult) => {
             if (error) {
-                data.error = "Theres an error somewhere";
+                data = {error: "Theres an error somewhere"};
                 response.render('error', data);
             } else {
                 if (userResult === null) {
@@ -285,12 +285,14 @@ module.exports = (db) => {
                             error: "something is wrong at slpDis"
                         };
                         response.render('error', data);
-                    } else {
+                    } else if (sleepData.length > 0) {
                         data = {
                             sleepData,
                             username: request.cookies.username
                             };
                         response.render('rest/slp', data)
+                    } else {
+                        response.redirect('/sleep/new')
                     }
                 })
         }
