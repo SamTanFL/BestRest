@@ -230,12 +230,14 @@ module.exports = (db) => {
                             error: "something is wrong at slpDis"
                         };
                         response.render('error', data);
-                    } else {
+                    } else if (sleepData != null) {
                         data = {
                             sleepData,
                             username: request.cookies.username
                             };
                         response.render('rest/slp', data)
+                    } else {
+                        response.redirect('/sleep/new')
                     }
                 })
             }
@@ -249,12 +251,14 @@ module.exports = (db) => {
                             error: "something is wrong at slpDis"
                         };
                         response.render('error', data);
-                    } else {
+                    } else if (sleepData != null) {
                         data = {
                             sleepData,
                             username: request.cookies.username
                             };
                         response.render('rest/slp', data)
+                    } else {
+                        response.redirect('/sleep/new')
                     }
                 })
             break;
@@ -267,17 +271,18 @@ module.exports = (db) => {
                             error: "something is wrong at slpDis"
                         };
                         response.render('error', data);
-                    } else {
+                    } else if (sleepData != null) {
                         data = {
                             sleepData,
                             username: request.cookies.username
                             };
                         response.render('rest/slp', data)
+                    } else {
+                        response.redirect('/sleep/new')
                     }
                 })
             break;
             default:
-                console.log("I shld be able to reach here no problem")
                 search = "WHERE userid='" + queryParam.userId + "' ";
                 db.main.selectSleep(search, (error, sleepData) => {
                     if (error) {
@@ -294,7 +299,6 @@ module.exports = (db) => {
                             };
                         response.render('rest/slp', data)
                     } else {
-                        console.log("Am I here yet?")
                         response.redirect('/sleep/new')
                     }
                 })
@@ -323,12 +327,14 @@ module.exports = (db) => {
                             error: "something is wrong at actDis"
                         };
                         response.render('error', data);
-                    } else {
+                    } else if (actData != null) {
                         data = {
                             actData,
                             username: request.cookies.username
                         };
                         response.render('rest/act', data)
+                    } else {
+                        response.redirect('/activity/new')
                     }
                 })
             }
@@ -360,12 +366,14 @@ module.exports = (db) => {
                             error: "something is wrong at actDis"
                         };
                         response.render('error', data);
-                    } else {
+                    } else if (actData != null) {
                         data = {
                             actData,
                             username: request.cookies.username
                         };
                         response.render('rest/act', data)
+                    } else {
+                        response.redirect('/activity/new')
                     }
                 })
             break;
@@ -378,12 +386,14 @@ module.exports = (db) => {
                             error: "something is wrong at actDis"
                         };
                         response.render('error', data);
-                    } else {
+                    } else if (actData != null) {
                         data = {
                             actData,
                             username: request.cookies.username
                         };
                         response.render('rest/act', data)
+                    } else {
+                        response.redirect('/activity/new')
                     }
                 })
         }
