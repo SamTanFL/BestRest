@@ -99,6 +99,9 @@ module.exports = (app, allModels) => {
      */
 
 
+     //Route for editing my sleep data
+    app.put('/sleep', mainControllerCallbacks.slpPut);
+
 
 
     /*

@@ -18,7 +18,6 @@ class Slp extends React.Component {
         endHours: slpDetails.sleepend.getHours(),
         endMinutes: slpDetails.sleepend.getMinutes()
     }
-    //"2020-01-01T12:00"
     if (slp.startMonth < 10) {slp.startMonth = "0" + slp.startMonth}
     if (slp.startDate < 10) {slp.startDate = "0" + slp.startDate}
     if (slp.startHours < 10) {slp.startHours = "0" + slp.startHours}
@@ -30,13 +29,13 @@ class Slp extends React.Component {
 
     let start = slp.startYear + "-" + slp.startMonth + "-" + slp.startDate + "T" + slp.startHours + ":" + slp.startMinutes
     let end = slp.endYear + "-" + slp.endMonth + "-" + slp.endDate + "T" + slp.endHours + ":" + slp.endMinutes
-    console.log(start);
+
     let defVal = {
         start,
         end,
         notes: this.props.slpDetails.notes
     }
-    console.log(defVal);
+
     let endError = <small className="text-danger">{this.props.error}</small>
 
     return (

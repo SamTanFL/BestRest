@@ -554,7 +554,35 @@ module.exports = (db) => {
     }
 
 
-
+    let slpPut = (request, response) => {
+        let details = {
+            userid: request.body.userId,
+            start: request.body.sleepstart,
+            end: request.body.sleepend,
+            duration: moment(request.body.sleepend) - moment(request.body.sleepstart),
+            notes: request.body.notes,
+            id: request.body.slpid
+        }
+        db.main.editSleep(details, (error, userid) => {
+            if (error) {
+                console.log("ERROR IN SLPPUT : ", error);
+                let data = {
+                    error: "THERES AN ERROR MATE IN SLP PUT"
+                }
+                response.render('error', data)
+            } else {
+                if (userid === null) {
+                let data = {
+                    error: "Unable to find entry"
+                }
+                response.render('error', data)
+                } else {
+                    let url = "/sleep/display?date1=&date2=&userId=" + request.cookies.userId
+                    response.redirect(url)
+                }
+            }
+        });
+    };
 
 
 
@@ -599,6 +627,7 @@ module.exports = (db) => {
         users,
         userLogout,
         slpDel,
+        slpPut,
         test
     };
 

@@ -168,6 +168,23 @@ module.exports = (dbPoolInstance) => {
     };
 
 
+    let editSleep = (details, callback) => {
+        let query = "UPDATE sleep SET userid=$1, sleepstart=$2, sleepend=$3, duration=$4, notes=$5 WHERE id=$6 RETURNING userid"
+        let values = [details.userid, details.start, details.end, details.duration, details.notes, details.id];
+        dbPoolInstance.query(query, values, (err, queryResult) => {
+            if (err) {
+                callback(err, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows[0].id);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+
 
 
     //test model for trying to extract data
@@ -189,6 +206,7 @@ module.exports = (dbPoolInstance) => {
         selectBoth,
         checkUser,
         delSleep,
+        editSleep,
         test
     };
 };
