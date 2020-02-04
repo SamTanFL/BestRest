@@ -5,7 +5,12 @@ var Footer = require("../../footer")
 
 class Slp extends React.Component {
   render() {
+    let defVal = {
+        start: "2020-01-01T00:00",
+        end: "2020-01-01T12:00"
+    }
     let endError = <small className="text-danger">{this.props.error}</small>
+
     return (
       <html>
         <Head />
@@ -21,13 +26,13 @@ class Slp extends React.Component {
                     <div className="form-group">
                         <label>Sleep Start :</label>
                         <p></p>
-                        <input type="datetime-local" className="form-control" name="sleepstart" defaultValue="2020-01-01T00:00"/>
+                        <input type="datetime-local" className="form-control" name="sleepstart" defaultValue={defVal.start}/>
                         <small>If you can't remember exactly, just go with a rough estimate</small>
                     </div>
                     <div className="form-group">
                         <label>Sleep End :</label>
 
-                        <input type="datetime-local" className="form-control" name="sleepend" defaultValue="2020-01-01T12:00"/>
+                        <input type="datetime-local" className="form-control" name="sleepend" defaultValue={defVal.end}/>
                     </div>
                     <div className="form-group">
                         <label>Comments :</label>

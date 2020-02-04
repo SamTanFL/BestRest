@@ -33,6 +33,9 @@ module.exports = (app, allModels) => {
     //form for registering a new user;
     app.get('/users/new', mainControllerCallbacks.userForm);
 
+    //Route for the form editing my sleep data
+    app.get('/sleep/edit', mainControllerCallbacks.slpPutForm)
+
     //form for tracking sleep
     app.get('/sleep/new', mainControllerCallbacks.slpForm);
 
@@ -109,6 +112,9 @@ module.exports = (app, allModels) => {
      *  =========================================
      */
 
+
+     //delete route for deleting slp
+     app.delete('/sleep', mainControllerCallbacks.slpDel)
 
      //delete route to log user out
      app.delete('/users/logout', mainControllerCallbacks.userLogout);

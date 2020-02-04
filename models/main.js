@@ -152,6 +152,24 @@ module.exports = (dbPoolInstance) => {
     };
 
 
+    let delSleep = (slpId, callback) => {
+        let query = "DELETE FROM sleep WHERE id='" + slpId + "' RETURNING id;";
+        dbPoolInstance.query(query, (err, queryResult) => {
+            if (err) {
+                callback(err, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows[0].id);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+
+
+
     //test model for trying to extract data
     let test = (callback) => {
         let query = "SELECT * FROM sleep;"
@@ -170,6 +188,7 @@ module.exports = (dbPoolInstance) => {
         selectAct,
         selectBoth,
         checkUser,
+        delSleep,
         test
     };
 };

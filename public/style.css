@@ -11,3 +11,9 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+.button {
+    display: flex;
+    padding-right: 5px;
+    float: right;
+}

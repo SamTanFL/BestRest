@@ -62,6 +62,32 @@ module.exports = (db) => {
     };
 
 
+    let slpPutForm = (request, response) => {
+        let data;
+        let searchPara = "WHERE id='" + request.query.slpid + "' ";
+        db.main.selectSleep(searchPara, (error, slpDetails) => {
+            if (error) {
+                console.log("ERROR HERE : ", error)
+            } else {
+                if (slpDetails === null) {
+                    let data = {
+                    error: "Unable to find entry",
+                    username: request.cookies.username
+                    }
+                    response.render('error', data)
+                } else {
+                    data = {
+                        slpDetails: slpDetails[0],
+                        userId : request.cookies.userId,
+                        username : request.cookies.username
+                    }
+                    response.render('rest/form/slpedit', data)
+                }
+            }
+        })
+    }
+
+
     let actForm = (request, response) => {
         if (sha256(request.cookies.userId + SALT) === request.cookies.logSess){
             let searchPara = "WHERE id=" + request.cookies.userId;
@@ -512,6 +538,26 @@ module.exports = (db) => {
 
 
 
+    let slpDel = (request, response) => {
+        let id = request.body.slpid;
+        db.main.delSleep(id, (error, slpid) => {
+            if (slpid === null) {
+                let data = {
+                    error: "Unable to find entry"
+                }
+                response.render('error', data)
+            } else {
+                let url = "/sleep/display?date1=&date2=&userId=" + request.cookies.userId
+                response.redirect(url)
+            }
+        })
+    }
+
+
+
+
+
+
 
 
 
@@ -540,6 +586,7 @@ module.exports = (db) => {
         index,
         userForm,
         slpForm,
+        slpPutForm,
         actForm,
         userPost,
         userLogin,
@@ -551,6 +598,7 @@ module.exports = (db) => {
         allDis,
         users,
         userLogout,
+        slpDel,
         test
     };
 

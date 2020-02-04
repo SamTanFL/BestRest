@@ -11,16 +11,23 @@ class Act extends React.Component {
             let duration = Math.ceil(parseInt(sleep.duration)/3600000);
             let slpMax = 8;
             let percentage = Math.ceil((duration/slpMax)*100) > 100 ? '100%' : Math.ceil((duration/slpMax)*100) + '%'
-            console.log(percentage)
             return (
                 <div className="container bg-dark col-6">
                     <label>Date :</label>
                     <span>{date}</span>
+                    <form action="/sleep?_method=delete" method="POST">
+                        <button className="button bg-danger">Delete</button>
+                        <input type="hidden" name="slpid" value={sleep.id}/>
+                    </form>
+                    <form action="/sleep/edit">
+                        <button className="button bg-secondary">Edit</button>
+                        <input type="hidden" name="slpid" value={sleep.id}/>
+                    </form>
                     <p>Slept for {duration} Hours</p>
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" style={{width: percentage}} aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">{duration}</div>
+                    <div className="progress">
+                        <div className="progress-bar" role="progressbar" style={{width: percentage}} aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">{duration}</div>
                     </div>
-                    <p>Notes : {sleep.notes}</p>
+                    <p className="pb-5 pt-1">Notes : {sleep.notes}</p>
                 </div>
                 )
         })
