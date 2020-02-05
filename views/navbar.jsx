@@ -8,7 +8,7 @@ class Navbar extends React.Component {
             loginOut = <div><span className="mr-sm-2">Logged in as {this.props.username}.</span><form className="form-inline my-2 my-lg-0" action="/users/logout?_method=delete" method="POST"><button className="btn btn-outline-primary my-2 my-sm-0" type="submit">Logout</button></form></div>;
             accStuff = <a className="dropdown-item text-light" href="/users">My Account</a>
         } else {
-            loginOut = <div><span><small className="text-danger">{this.props.error}</small></span><form className="form-inline my-2 my-lg-0" method="POST" action="/"><input className="form-control mr-sm-2 bg-dark" type="text" placeholder="Username" aria-label="User" name="username"/><input className="form-control mr-sm-2 bg-dark" type="text" placeholder="Password" aria-label="Password" name="password"/><button className="btn btn-outline-primary my-2 my-sm-0" type="submit">Log In</button></form></div>;
+            loginOut = <div><span><small className="text-danger">{this.props.error}</small></span><form className="form-inline my-2 my-lg-0" method="POST" action="/"><input className="form-control mr-sm-2 bg-dark" type="text" placeholder="Username" aria-label="User" name="username"/><input className="form-control mr-sm-2 bg-dark" type="password" placeholder="Password" aria-label="Password" name="password"/><button className="btn btn-outline-primary my-2 my-sm-0" type="submit">Log In</button></form></div>;
             accStuff = <a className="dropdown-item text-light" href="/users/new">Register Account</a>
         }
         return (
