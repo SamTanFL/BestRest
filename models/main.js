@@ -69,6 +69,7 @@ module.exports = (dbPoolInstance) => {
     let selectSleep = (details, callback) => {
         let query = "SELECT * FROM sleep " + details + "ORDER BY sleepstart ASC";
         dbPoolInstance.query(query, (err, queryResult) => {
+            console.log(queryResult)
             if (err) {
                 callback(err, null);
             } else {

@@ -12,7 +12,7 @@ class User extends React.Component {
             <Navbar username={this.props.username}/>
             <div className="container">
                 <h1>Register Account</h1>
-                <form action="/users/new" method="POST">
+                <form action="/users/new" method="POST" className="col-6">
                     <div className="form-group">
                         <label>Username :</label>
                         <input type="text" className="form-control" name="username" required/>

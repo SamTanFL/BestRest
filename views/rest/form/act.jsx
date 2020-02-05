@@ -12,7 +12,7 @@ class Act extends React.Component {
             <Navbar username={this.props.username}/>
             <div className="container">
                 <h1>Track Activity</h1>
-                <form action="/activity" method="POST">
+                <form action="/activity" method="POST" className="col-6">
                     <div className="form-group">
                         <input type="hidden" name="userId" value={this.props.userId}/>
                     </div>

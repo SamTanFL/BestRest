@@ -19,7 +19,7 @@ class Slp extends React.Component {
             <div className="container">
                 <h1>Track Sleep</h1>
                 <p>{endError}</p>
-                <form action="/sleep" method="POST">
+                <form action="/sleep" method="POST" className="col-6">
                     <div className="form-group">
                         <input type="hidden" name="userId" value={this.props.userId}/>
                     </div>

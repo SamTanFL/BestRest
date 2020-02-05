@@ -58,7 +58,7 @@ module.exports = (app, allModels) => {
     app.get('/activity/new', mainControllerCallbacks.actForm);
 
     //display summary for the user
-    app.get('/users/summary', mainControllerCallbacks.usersSum)
+    //app.get('/users/summary', mainControllerCallbacks.usersSum)
 
     //display user stuff
     app.get('/users', mainControllerCallbacks.users)

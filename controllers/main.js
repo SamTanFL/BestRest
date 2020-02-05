@@ -65,14 +65,14 @@ module.exports = (db) => {
     let slpPutForm = (request, response) => {
         let data;
         if (sha256(request.cookies.userId + SALT) === request.cookies.logSess) {
-            let searchPara = "WHERE id='" + request.query.actid + "' ";
-            db.main.selectAct(searchPara, (error, slpDetails) => {
+            let searchPara = "WHERE id='" + request.query.slpid + "' ";
+            db.main.selectSleep(searchPara, (error, slpDetails) => {
                 if (error) {
                     console.log("ERROR HERE : ", error)
                 } else {
                     if (slpDetails === null) {
                         data = {
-                        error: "Unable to find entry",
+                        error: "Unable to find entry in Sleep for Form",
                         username: request.cookies.username
                         }
                         response.render('error', data)
@@ -557,16 +557,16 @@ module.exports = (db) => {
     let usersSum = (request, response) => {
         switch (request.query.duration) {
             case "week":
-
+                response.redirect('/')
             break;
             case "month":
-
+                response.redirect('/')
             break;
             case "year":
-
+                response.redirect('/')
             break;
             default:
-                response.send("This works")
+                response.redirect('/')
         }
     }
 

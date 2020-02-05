@@ -46,7 +46,7 @@ class SlpEdit extends React.Component {
             <div className="container">
                 <h1>Track Sleep</h1>
                 <p>{endError}</p>
-                <form action="/sleep?_method=put" method="POST">
+                <form action="/sleep?_method=put" method="POST" className="col-6">
                     <div className="form-group">
                         <input type="hidden" name="userId" value={this.props.userId} />
                         <input type="hidden" name="slpid" value={this.props.slpDetails.id} />
